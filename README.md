@@ -9,8 +9,8 @@
 </style>
 </head>
 <body>
-<canvas id="game" width="800" height="640"></canvas>
-<div class="hint">← → / A D eller touch • Hopp: ↑ / w / touch</div>
+<canvas id="game" width="480" height="640"></canvas>
+<div class="hint">← → / A D eller touch • Hopp: ↑ / W / touch</div>
 <script>
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
@@ -22,10 +22,13 @@ let score = 0;
 let gameOver = false;
 
 function reset() {
-  player.x = 180; player.y = 520; player.vx = 0; player.vy = 0;
+  player.x = canvas.width/2 - player.w/2; player.y = 520; player.vx = 0; player.vy = 0;
   platforms = [];
-  for (let i=0;i<6;i++) {
-    platforms.push({ x:Math.random()*300, y:600-i*120, w:80, h:12 });
+  // Startplattform (dekker hele bunnen)
+  platforms.push({ x:0, y:600, w:canvas.width, h:16 });
+  // Vanlige plattformer over hele bredden
+  for (let i=1;i<6;i++) {
+    platforms.push({ x:Math.random()*(canvas.width-100), y:600-i*120, w:80+Math.random()*80, h:12 });
   }
   score = 0; gameOver = false;
 }
@@ -95,8 +98,14 @@ function update() {
 
   // Nye plattformer
   platforms = platforms.filter(p=>p.y<700);
-  while (platforms.length<6) {
-    platforms.push({ x:Math.random()*300, y:-Math.random()*120, w:60+Math.random()*60, h:12 });
+  while (platforms.length < 6) {
+    platforms.push({
+      x: Math.random() * (canvas.width - 120),
+      y: -Math.random() * 140,
+      w: 80 + Math.random() * 120,
+      h: 12
+    });
+  });
   }
 
   if (player.y > canvas.height) gameOver = true;
