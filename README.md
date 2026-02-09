@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="no">
 <head>
 <meta charset="UTF-8">
@@ -10,8 +9,8 @@
 </style>
 </head>
 <body>
-<canvas id="game" width="360" height="640"></canvas>
-<div class="hint">← → / A D eller touch • Hopp: ↑ / W / touch</div>
+<canvas id="game" width="800" height="640"></canvas>
+<div class="hint">← → / A D eller touch • Hopp: ↑ / w / touch</div>
 <script>
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
